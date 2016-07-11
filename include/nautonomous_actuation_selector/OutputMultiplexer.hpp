@@ -8,16 +8,13 @@
 #ifndef OUTPUTMULTIPLEXER_HPP_
 #define OUTPUTMULTIPLEXER_HPP_
 
-
-
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 #include "string"
 
-#include "AutonomousOutput.hpp"
-#include "ManualOutput.hpp"
-
-#include "MessagePriority.h"
+#include "../nautonomous_actuation_selector/AutonomousOutput.hpp"
+#include "../nautonomous_actuation_selector/ManualOutput.hpp"
+#include "../nautonomous_actuation_selector/MessagePriority.h"
 
 using namespace std;
 

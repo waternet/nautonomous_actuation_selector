@@ -5,7 +5,7 @@
  *      Author: zeeuwe01
  */
 
-#include "../include/nautonomous_output_selector_multiplexer/OutputMultiplexer.hpp"
+#include "../include/nautonomous_actuation_selector/OutputMultiplexer.hpp"
 
 void manualPropulsionCallback(const geometry_msgs::Twist::ConstPtr& msg)
 {

@@ -11,8 +11,9 @@
 #include "ros/ros.h"
 #include "std_msgs/Bool.h"
 #include "geometry_msgs/Twist.h"
-#include "MessagePriority.h"
-#include "OutputMultiplexer.hpp"
+
+#include "../nautonomous_actuation_selector/MessagePriority.h"
+#include "../nautonomous_actuation_selector/OutputMultiplexer.hpp"
 
 void autonomousPropulsionCallback(const geometry_msgs::Twist::ConstPtr& msg);
 

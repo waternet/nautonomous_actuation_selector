@@ -5,7 +5,7 @@
  *      Author: zeeuwe01
  */
 
-#include "../include/nautonomous_output_selector_multiplexer/OutputMultiplexer.hpp"
+#include "../include/nautonomous_actuation_selector/OutputMultiplexer.hpp"
 
 /**
  * This tutorial demonstrates simple receipt of messages over the ROS system.
@@ -23,7 +23,7 @@ void propulsionCallback(const geometry_msgs::Twist::ConstPtr& msg,
 		propulsion_message->twist.linear = msg->linear;
 		propulsion_message->priority = priority;
 	} else {
-		ROS_WARN("incoming message of lower priority %d, ignoring it ...", priority);
+		//ROS_LOG("incoming message of lower priority %d, ignoring it ...", priority);
 	}
 }
 
@@ -41,7 +41,7 @@ void conveyorCallback(const geometry_msgs::Twist::ConstPtr& msg,
 		conveyor_message->twist.linear = msg->linear;
 		conveyor_message->priority = priority;
 	} else {
-		ROS_WARN("incoming message of lower priority, ignoring it ...");
+		//ROS_LOG("incoming message of lower priority, ignoring it ...");
 	}
 }
 
@@ -58,7 +58,7 @@ void lightingCallback(const std_msgs::Bool::ConstPtr& msg,
 		lighting_message->state.data = msg->data;
 		lighting_message->priority = priority;
 	} else {
-		ROS_WARN("incoming message of lower priority, ignoring it ...");
+		//ROS_LOG("incoming message of lower priority, ignoring it ...");
 	}
 }
 
@@ -114,12 +114,10 @@ int main(int argc, char **argv) {
 	lighting_publisher = n.advertise<std_msgs::Bool>("multiplexed_lighting",
 			1000);
 
-	ros::Rate rate(10);
-	int index = 0;
+	ros::Rate rate(100); //TODO: dynamic configuration
 	while (ros::ok()) {
 	
 		publishOutput();
-		index = 0;
 
 		rate.sleep();
 		ros::spinOnce();
