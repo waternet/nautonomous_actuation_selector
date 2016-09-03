@@ -114,7 +114,7 @@ int main(int argc, char **argv) {
 	lighting_publisher = n.advertise<std_msgs::Bool>("multiplexed_lighting",
 			1000);
 
-	ros::Rate rate(100); //TODO: dynamic configuration
+	ros::Rate rate(9); //TODO: dynamic configuration
 	while (ros::ok()) {
 	
 		publishOutput();
