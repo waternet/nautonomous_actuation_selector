@@ -8,15 +8,15 @@
 #include "../include/nautonomous_actuation_selector/OutputMultiplexer.hpp"
 
 /**
- * This tutorial demonstrates simple receipt of messages over the ROS system.
+ * General callback to process both autonomous and manual messages, using the message destination, see AutonomousOutput and ManualOutput
  */
 void propulsionCallback(const geometry_msgs::Twist::ConstPtr& msg,
 		MessagePriority priority) {
-	//ROS_INFO("Multiplexing Propulsion received : linear [%f, %f, %f] and angular [%f, %f, %f] %d", msg->linear.x, msg->linear.y, msg->linear.z, msg->angular.x, msg->angular.y, msg->angular.z, priority );
+
 	if(!propulsion_message){
 		propulsion_message = new TwistOutputMessage();
 	}
-	//ROS_INFO("priority %d propulsion_message->priority %d ", priority, propulsion_message->priority);
+
 	if (priority <= propulsion_message->priority) {
 		std_msgs::String name;
 		propulsion_message->twist.angular = msg->angular;
@@ -28,11 +28,10 @@ void propulsionCallback(const geometry_msgs::Twist::ConstPtr& msg,
 }
 
 /**
- * This tutorial demonstrates simple receipt of messages over the ROS system.
+ * General callback to process both autonomous and manual messages, using the message destination, see AutonomousOutput and ManualOutput
  */
 void conveyorCallback(const geometry_msgs::Twist::ConstPtr& msg,
 		MessagePriority priority) {
-	//ROS_INFO("Multiplexing Conveyor received : linear [%f, %f, %f] and angular [%f, %f, %f]", msg->linear.x, msg->linear.y, msg->linear.z, msg->angular.x, msg->angular.y, msg->angular.z);
 	if(!conveyor_message){
 		conveyor_message = new TwistOutputMessage();
 	}
@@ -46,11 +45,10 @@ void conveyorCallback(const geometry_msgs::Twist::ConstPtr& msg,
 }
 
 /**
- * This tutorial demonstrates simple receipt of messages over the ROS system.
+ * General callback to process both autonomous and manual messages, using the message destination, see AutonomousOutput and ManualOutput
  */
 void lightingCallback(const std_msgs::Bool::ConstPtr& msg,
 		MessagePriority priority) {
-	//ROS_INFO("Multiplexing Lighting received: [%d]", msg->data);
 	if(!lighting_message){
 		lighting_message = new BoolOutputMessage();
 	}
@@ -62,6 +60,9 @@ void lightingCallback(const std_msgs::Bool::ConstPtr& msg,
 	}
 }
 
+/**
+* Check if the messages exist, if they exist send the appropriate message and delete them afterwards.
+*/
 void publishOutput() {
 	std_msgs::String propulsion;
 
@@ -89,10 +90,12 @@ int main(int argc, char **argv) {
 
 	ros::NodeHandle n;
 
+	//Create messages
 	propulsion_message = nullptr;
 	conveyor_message = nullptr;
 	lighting_message = nullptr;
 
+	//Subscribe to topics
 	ros::Subscriber manualPropulsionSub = n.subscribe("manual_propulsion", 1000,
 			manualPropulsionCallback);
 	ros::Subscriber manualConveyorSub = n.subscribe("manual_conveyor", 1000,
@@ -106,7 +109,8 @@ int main(int argc, char **argv) {
 			1000, autonomousConveyorCallback);
 	ros::Subscriber autonomousLightingSub = n.subscribe("autonomous_lighting",
 			1000, autonomousLightingCallback);
-
+	
+	//Publish topics
 	propulsion_publisher = n.advertise<geometry_msgs::Twist>(
 			"multiplexed_propulsion", 1000);
 	conveyor_publisher = n.advertise<geometry_msgs::Twist>("multiplexed_conveyor",
