@@ -1,4 +1,4 @@
-/*
+	/*
  * OutputMultiplexer.cpp
  *
  *  Created on: Apr 16, 2016
@@ -8,7 +8,9 @@
 #include "../include/nautonomous_actuation_selector/OutputMultiplexer.hpp"
 
 /**
- * General callback to process both autonomous and manual messages, using the message destination, see AutonomousOutput and ManualOutput
+ * \brief General callback to process both autonomous and manual messages, using the message destination, see AutonomousOutput.cpp and ManualOutput.cpp
+ * \param geometry_msgs::Twist msg \param MessagePriority priority
+ * \return
  */
 void propulsionCallback(const geometry_msgs::Twist::ConstPtr& msg,
 		MessagePriority priority) {
@@ -28,7 +30,9 @@ void propulsionCallback(const geometry_msgs::Twist::ConstPtr& msg,
 }
 
 /**
- * General callback to process both autonomous and manual messages, using the message destination, see AutonomousOutput and ManualOutput
+ * \brief General callback to process both autonomous and manual messages, using the message destination, see AutonomousOutput.cpp and ManualOutput.cpp
+ * \param geometry_msgs::Twist msg \param MessagePriority priority
+ * \return
  */
 void conveyorCallback(const geometry_msgs::Twist::ConstPtr& msg,
 		MessagePriority priority) {
@@ -45,7 +49,9 @@ void conveyorCallback(const geometry_msgs::Twist::ConstPtr& msg,
 }
 
 /**
- * General callback to process both autonomous and manual messages, using the message destination, see AutonomousOutput and ManualOutput
+ * \brief General callback to process both autonomous and manual messages, using the message destination, see AutonomousOutput.cpp and ManualOutput.cpp
+ * \param std_msgs::Bool msg \param MessagePriority priority
+ * \return
  */
 void lightingCallback(const std_msgs::Bool::ConstPtr& msg,
 		MessagePriority priority) {
@@ -61,7 +67,9 @@ void lightingCallback(const std_msgs::Bool::ConstPtr& msg,
 }
 
 /**
-* Check if the messages exist, if they exist send the appropriate message and delete them afterwards.
+* \brief Publishes messages. Checks if the messages exist, if they exist send the appropriate message and delete them afterwards.
+* \param
+* \return
 */
 void publishOutput() {
 	std_msgs::String propulsion;
@@ -83,6 +91,10 @@ void publishOutput() {
 	}
 
 }
+
+/**
+* Main for output_multiplexer node. Subscribes to topic and advertises new topics. While ROS is running, calls publishOutput()
+*/
 
 int main(int argc, char **argv) {
 
