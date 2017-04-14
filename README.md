@@ -16,7 +16,7 @@ output_multiplexer
 /multiplexed_propulsion, /multiplexed_conveyor, /multiplexed_lighting
 
 ## Files
-[Include](../../doxygen_nautonomous/html/dir_d60bf73a515735dff56209f4ec58ffdf.html)  |  [Src](../..//doxygen_nautonomous/html/dir_43c81b27ea54bdf7c3f062a318fb0ed9.html)
+[Include](dir_d60bf73a515735dff56209f4ec58ffdf.html)  |  [Src](dir_43c81b27ea54bdf7c3f062a318fb0ed9.html)
 
 
 ##Overview
